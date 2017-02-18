@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ABND_9_Habit_tracker</string>
+    <string name="no_ui_was_required_by_spec_and_please_see_logcat_log_to_see_if_database_worked_or_not">No UI was required by spec and please see logcat log to see if database worked or not.</string>
+</resources>
