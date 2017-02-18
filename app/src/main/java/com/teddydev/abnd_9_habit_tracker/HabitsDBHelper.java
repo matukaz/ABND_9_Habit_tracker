@@ -1,6 +1,8 @@
 package com.teddydev.abnd_9_habit_tracker;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -33,5 +35,45 @@ public class HabitsDBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
+    }
+
+    public Cursor readEntireHabitsData() {
+
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+
+        String[] projection = {
+                HabitTable._ID,
+                HabitTable.COLUMN_HABIT_NAME,
+                HabitTable.COLUMN_HABIT_NR_OF_TIMES
+        };
+
+        Cursor cursor = sqLiteDatabase.query(
+                HabitTable.TABLE_NAME,           // The table to query
+                projection,                      // The columns to return
+                null,                            // The columns for the WHERE clause
+                null,                            // The values for the WHERE clause
+                null,                            // don't group the rows
+                null,                            // don't filter by row groups
+                null                             // The sort order
+        );
+        return cursor;
+    }
+
+
+    /**
+     * The row ID of the newly inserted row, or -1 if an error occurred
+     *
+     * @return
+     */
+    public long insertMockData() {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+
+        // Create a new map of values, where column names are the keys
+        ContentValues values = new ContentValues();
+        values.put(HabitTable.COLUMN_HABIT_NAME, "Learning ABND in Udacity");
+        values.put(HabitTable.COLUMN_HABIT_NR_OF_TIMES, 10);
+
+        // Insert the new row, returning the primary key value of the new row
+        return sqLiteDatabase.insert(HabitTable.TABLE_NAME, null, values);
     }
 }
